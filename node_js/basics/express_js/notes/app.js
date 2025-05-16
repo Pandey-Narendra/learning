@@ -1,10 +1,15 @@
 // app.listen() already uses Node.js’s http module internally
 // const http = require('http');
 
+
+// 10:40 am - 12:20 am
+
 // ---------------------------------------------
     //  Express JS Starts
         // npm install --save-dev express
         // npm install --save express
+
+        //  npm install --save ejs pug express-handlebars
 // ---------------------------------------------
 
     // Used to set up global middleware, routes, error handlers, and start the server.

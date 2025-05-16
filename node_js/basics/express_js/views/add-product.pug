@@ -1,0 +1,49 @@
+//- In Pug (formerly Jade), extends is used to inherit a layout file. It tells the Pug engine that this file is a child template and should build on top of a parent layout.
+//- like extends('layout_path') in Laravel
+extends layouts/main-layout.pug
+
+//- Since we are already is in the extended layout, we can use the block keyword to define a section of the layout that we want to overrid
+//- this is like a @section('@yeild_name') content @endSection
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+    link(rel="stylesheet", href="/css/product.css")
+
+block content
+    main
+        form.product-form(action="/admin/add-product", method="POST")
+            .form-control
+                label(for="title") Title
+                input(type="text", name="title")#title
+            button.btn(type="submit") Add Product
+
+
+//- ----------------------------------------------------------------------------------------------------------------------------------------
+            //- Without template using starts 
+//- ----------------------------------------------------------------------------------------------------------------------------------------
+    //- <!DOCTYPE html>
+    //- html(lang="en")
+    //-     head
+    //-         meta(charset="UTF-8")
+    //-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    //-         meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    //-         title #{title}
+    //-         link(rel="stylesheet", href="/css/main.css")
+    //-         link(rel="stylesheet", href="/css/forms.css")
+    //-         link(rel="stylesheet", href="/css/product.css")
+    //-     body
+    //-         header.main-header
+    //-             nav.main-header__nav
+    //-                 ul.main-header__item-list
+    //-                     li.main-header__item
+    //-                         a(href="/") Shop
+    //-                     li.main-header__item
+    //-                         a.active(href="/admin/add-product") Add Product
+    //-         main
+    //-             form.product-form(action="/admin/add-product", method="POST")
+    //-                 .form-control
+    //-                     label(for="title") Title
+    //-                     input#title(type="text", name="title")
+    //-                 button.btn(type="submit") Add Product       
+//- ----------------------------------------------------------------------------------------------------------------------------------------
+            //- Without template using ends 
+//- ----------------------------------------------------------------------------------------------------------------------------------------
