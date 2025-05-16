@@ -41,26 +41,39 @@ const app = express();
         
         // Import the express-handlebars package explicitly fron express framework
         // Its like a templating engine that allows you to embed JavaScript variables inside your HTML templates using {{}} like syntax in Laravel aslo.
-        const expressHandlebars = require('express-handlebars');
+        // const expressHandlebars = require('express-handlebars');
 
         // Register Handlebars as the view engine with Express
         // 'hbs' is the name we give this engine; express will use this name to look for views with .hbs extension
-        app.engine(
-            'hbs', // file extension to use for views
-            expressHandlebars({
-                layoutsDir: 'basics/express_js/views/layouts/',      // Directory where layout files like main-layout.hbs are stored
-                defaultLayout: 'main-layout',      // The default layout file to wrap around all rendered views
-                extname: 'hbs'                     // File extension for views (instead of the default .handlebars)
-            })
-        );
+        // app.engine(
+        //     'hbs', // file extension to use for views
+        //     expressHandlebars({
+        //         layoutsDir: 'basics/express_js/views/layouts/',      // Directory where layout files like main-layout.hbs are stored
+        //         defaultLayout: 'main-layout',      // The default layout file to wrap around all rendered views
+        //         extname: 'hbs'                     // File extension for views (instead of the default .handlebars)
+        //     })
+        // );
 
         // Set Handlebars as the default view engine so you can render views without specifying the file extension
         // - With this setup, res.render('shop') will render views/shop.hbs
-        app.set('view engine', 'hbs');
+        // app.set('view engine', 'hbs');
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                     // Handlebars Configuration starts
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    // EJS Configuration starts
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        app.set('view engine', 'ejs');
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    // EJS Configuration starts
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
     // Set the folder where your Pug template files are located.
@@ -147,7 +160,7 @@ const app = express();
         // status() is a function used to set the status of the resposne for the browser;
         // res.status(404).sendFile(path.join(rootDir, './', 'views', '404.html'));
 
-        res.status(404).render('404', { title: 'Page Not Found' });
+        res.status(404).render('404', { title: 'Page Not Found', path: '/404'  });
     });
    
    
