@@ -1,11 +1,6 @@
 // app.listen() already uses Node.js’s http module internally
 // const http = require('http');
 
-
-// 10:40 am - 12:20 am
-// 30 min
-// 8: 30
-
 // ---------------------------------------------
     //  Express JS Starts
         // npm install --save-dev express
