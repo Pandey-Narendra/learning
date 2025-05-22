@@ -15,9 +15,9 @@
     exports.getProducts = (req, res, next) => {
         Product.fetchAll(products => {
             res.render('shop/product-list', {
-                prods: products,                  
-                pageTitle: 'All Products',                 
-                path: '/products'          
+            prods: products,
+            pageTitle: 'All Products',
+            path: '/products'
             });
         });
     };
@@ -39,13 +39,19 @@
         });
     };
 
+    exports.getOrders = (req, res, next) => {
+        res.render('shop/orders', {
+            path: '/orders',
+            pageTitle: 'Your Orders'
+        });
+    };
+
     exports.getCheckout = (req, res, next) => {
         res.render('shop/checkout', {
             path: '/checkout',
             pageTitle: 'Checkout'
         });
     };
-
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 //       Shop Controller Ends

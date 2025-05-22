@@ -23,6 +23,8 @@
 
     router.get('/cart', shopController.getCart);
 
+    router.get('/orders', shopController.getOrders);
+    
     router.get('/checkout', shopController.getCheckout);
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

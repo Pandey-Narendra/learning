@@ -41,28 +41,26 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	module.exports = class Product {
-		
-		constructor(t){
-			this.title = t;
+		constructor(title, imageUrl, description, price) {
+			this.title = title;
+			this.imageUrl = imageUrl;
+			this.description = description;
+			this.price = price;
 		}
 
-		save(){
-			
+		save() {
 			getProductsFromFile(products => {
 				products.push(this);
 				fs.writeFile(p, JSON.stringify(products), err => {
+					console.log(err);
 				});
 			});
-
 		}
 
-		static fetchAll(cb){
-
-			getProductsFromFile(cb); 
-			
+		static fetchAll(cb) {
+			getProductsFromFile(cb);
 		}
-	}
-
+	};
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //      Products Model Class Definition Ends
