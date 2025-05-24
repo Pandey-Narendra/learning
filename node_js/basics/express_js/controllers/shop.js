@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     const Product = require('../models/product');
+    const Cart = require('../models/cart');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //      Model for products ends
@@ -13,6 +14,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     exports.getProducts = (req, res, next) => {
+        
         Product.fetchAll(products => {
             res.render('shop/product-list', {
             prods: products,
@@ -22,12 +24,22 @@
         });
     };
 
+    exports.getProduct = (req, res, next) => {
+        const productId = req.params.id;
+    
+        Product.getProduct(productId, product => {
+            res.render('shop/product-detail', {product: product, pageTitle: product.title, path: '/products'});
+        });
+    }
+
     exports.getIndex = (req, res, next) => {
+        
         Product.fetchAll(products => {
+
             res.render('shop/index', {
-            prods: products,
-            pageTitle: 'Shop',
-            path: '/'
+                prods: products,
+                pageTitle: 'Shop',
+                path: '/'
             });
         });
     };
@@ -38,6 +50,16 @@
             pageTitle: 'Your Cart'
         });
     };
+
+    exports.postCart = (req, res, next) => {
+        const productId = req.body.productId;
+        
+        Product.getProduct(productId, product => {
+            Cart.addProduct(productId, product.price);
+        });
+        
+        res.redirect('/cart');
+    }
 
     exports.getOrders = (req, res, next) => {
         res.render('shop/orders', {
