@@ -1,1 +1,0 @@
-1) Migrations are like version control for your database, allowing your team to define and share the application's database schema definition.
