@@ -14,6 +14,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     exports.getAddProduct = (req, res, next) => {
+        
         res.render('admin/add-product', {
             pageTitle: 'Add Product',
             path: '/admin/add-product',
@@ -21,26 +22,34 @@
             productCSS: true,
             activeAddProduct: true
         });
+
     };
 
     exports.postAddProduct = (req, res, next) => {
+        
         const title = req.body.title;
         const imageUrl = req.body.imageUrl;
         const price = req.body.price;
         const description = req.body.description;
-        const product = new Product(title, imageUrl, description, price);
+        const product = new Product(null, title, imageUrl, description, price);
+
         product.save();
         res.redirect('/');
+
     };
 
     exports.getProducts = (req, res, next) => {
+        
         Product.fetchAll(products => {
+            
             res.render('admin/products', {
-            prods: products,
-            pageTitle: 'Admin Products',
-            path: '/admin/products'
+                prods: products,
+                pageTitle: 'Admin Products',
+                path: '/admin/products'
             });
+            
         });
+
     };
 
     exports.getEditProduct = (req, res, next) => {
@@ -61,17 +70,29 @@
 
     exports.postEditProduct = (req, res, next) => {
         
+        const productId = req.body.productId;
         const title = req.body.title;
         const imageUrl = req.body.imageUrl;
         const price = req.body.price;
         const description = req.body.description;
-        const productId = req.body.productId;
 
-        console.log(title, imageUrl, price, description,productId, 'admin js controller postEditProduct');
+        // initiated new project object and bind its all methods
+        const UpdateProduct = new Product(productId, title, imageUrl, price, description);
+        UpdateProduct.save();
+
+        // console.log(UpdateProduct, 'admin js controller postEditProduct');
         
-        res.redirect('/');
+        res.redirect('/admin/products');
     };
 
+    exports.deleteProduct = (req, res, next) => {
+        const productId = req.body.productId;
+
+        const deleteProduct = new Product(productId);
+        deleteProduct.delete();
+       
+        res.redirect('/admin/products');
+    }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 //       Admin Controller Ends

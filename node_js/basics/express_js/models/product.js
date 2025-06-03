@@ -42,7 +42,9 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	module.exports = class Product {
-		constructor(title, imageUrl, description, price) {
+		// this
+		constructor(id, title, imageUrl, description, price) {
+			this.id = id;
 			this.title = title;
 			this.imageUrl = imageUrl;
 			this.description = description;
@@ -50,12 +52,38 @@
 		}
 
 		save() {
-			this.id = Math.random().toString();
+			
 			getProductsFromFile(products => {
-				products.push(this);
-				fs.writeFile(p, JSON.stringify(products), err => {
-					console.log('product.js model', err);
-				});
+	
+				// update
+				if(this.id){
+					
+					// This will get existing product from the products callback
+					const existingProduct = products.findIndex(prod => prod.id === this.id);
+
+					// Spread all the products inside a updatedProducts
+					const updatedProducts = [...products]; 
+
+					// replace the old product with the new updated product (this), since products is array replace it using its index
+					updatedProducts[existingProduct]= this;
+
+					// console.log('updatedProducts', updatedProducts);
+
+					// update existingProduct  on the file
+					fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+						// console.log('product.js model', err);
+					});
+				}
+				// new 
+				else{
+					
+					this.id = Math.random().toString();
+					products.push(this);
+					
+					fs.writeFile(p, JSON.stringify(products), err => {
+						console.log('product.js model', err);
+					});
+				}
 			});
 		}
 
@@ -64,11 +92,30 @@
 		}
 
 		static getProduct(id, cb){
+			
 			getProductsFromFile(products => {
 				const product = products.find( p => p.id === id);
+				
 				cb(product);
+
 			});
 		}
+
+		delete() {
+			
+			getProductsFromFile(products => {
+				const updatedProducts = products.filter(prod => prod.id !== this.id);
+				
+				fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+					if (err) {
+						console.log('Error deleting product:', err);
+					}
+				});
+
+			});
+			
+		}
+
 	};
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
