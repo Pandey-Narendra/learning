@@ -15,33 +15,56 @@
 
     exports.getProducts = (req, res, next) => {
         
-        Product.fetchAll(products => {
-            res.render('shop/product-list', {
-            prods: products,
-            pageTitle: 'All Products',
-            path: '/products'
-            });
-        });
+        Product.getProducts()
+            
+            .then( ([products, productsfield]) => {
+
+                res.render('shop/product-list', {
+                    prods: products,
+                    pageTitle: 'All Products',
+                    path: '/products'
+                });
+
+            } )
+            .catch( (err) => {
+
+            } )
+        ;
     };
 
     exports.getProduct = (req, res, next) => {
         const productId = req.params.id;
     
-        Product.getProduct(productId, product => {
-            res.render('shop/product-detail', {product: product, pageTitle: product.title, path: '/products'});
-        });
+        Product.getProduct(productId)
+            .then( ([product, field]) => {
+                res.render('shop/product-detail', {
+                    product: product[0], 
+                    pageTitle: product[0].title, 
+                    path: '/products'
+                });
+            } )
+            .catch( (err) => {console.log(err, 'shop.js controller err');} )
+        ;
+       
     }
 
     exports.getIndex = (req, res, next) => {
         
-        Product.fetchAll(products => {
+        Product.getProducts()
+            
+            .then( ([products, productsfield]) => {
 
-            res.render('shop/index', {
-                prods: products,
-                pageTitle: 'Shop',
-                path: '/'
-            });
-        });
+                res.render('shop/index', {
+                    prods: products,
+                    pageTitle: 'Shop',
+                    path: '/'
+                });
+
+            } )
+            .catch( (err) => {
+
+            } )
+        ;
     };
 
     exports.getCart = (req, res, next) => {
@@ -59,7 +82,16 @@
         });
         
         res.redirect('/cart');
-    }
+    };
+
+    exports.deleteCart = (req, res, next) => {
+        const productId = req.body.productId;
+        const productPrice = req.body.productPrice;
+        // console.log('shop.js controller delete cart', productId, productPrice);
+
+        Cart.deleteProduct(productId, productPrice);
+        res.redirect('/');
+    };
 
     exports.getOrders = (req, res, next) => {
         res.render('shop/orders', {

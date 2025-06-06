@@ -31,25 +31,34 @@
         const imageUrl = req.body.imageUrl;
         const price = req.body.price;
         const description = req.body.description;
+        
         const product = new Product(null, title, imageUrl, description, price);
-
-        product.save();
-        res.redirect('/');
+        product.postProduct()
+            .then( () => { 
+                res.redirect('/'); 
+            } )
+            .catch( (err) => {})
+        ;
 
     };
 
     exports.getProducts = (req, res, next) => {
         
-        Product.fetchAll(products => {
+        Product.getProducts()
             
-            res.render('admin/products', {
-                prods: products,
-                pageTitle: 'Admin Products',
-                path: '/admin/products'
-            });
-            
-        });
+            .then( ([products, productfield]) => {
 
+                res.render('admin/products', {
+                    prods: products,
+                    pageTitle: 'Admin Products',
+                    path: '/admin/products'
+                });
+
+            } )
+            .catch( (err) => {
+
+            } )
+        ;
     };
 
     exports.getEditProduct = (req, res, next) => {
@@ -78,7 +87,7 @@
 
         // initiated new project object and bind its all methods
         const UpdateProduct = new Product(productId, title, imageUrl, price, description);
-        UpdateProduct.save();
+        UpdateProduct.postProduct();
 
         // console.log(UpdateProduct, 'admin js controller postEditProduct');
         
@@ -90,6 +99,8 @@
 
         const deleteProduct = new Product(productId);
         deleteProduct.delete();
+
+        // Product.delete(productId)
        
         res.redirect('/admin/products');
     }

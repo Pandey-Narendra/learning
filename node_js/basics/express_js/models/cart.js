@@ -28,10 +28,45 @@ module.exports = class Cart {
 				updatedProduct = { id: id, qty: 1 };
 				cart.products = [...cart.products, updatedProduct];
 			}
+			
 			cart.totalPrice = cart.totalPrice + +productPrice;
+			
 			fs.writeFile(p, JSON.stringify(cart), err => {
 				console.log(err);
 			});
 		});
   	}
+
+	static deleteProduct(id, productPrice){
+		
+		fs.readFile(p, (err, fileContent) => {
+			
+			if(err){
+				return;
+			}
+
+			const cart = { ...JSON.parse(fileContent) };
+
+			const existingProduct = cart.products.find(prod => prod.id === id );
+
+			if(existingProduct){
+				existingProduct['qty'] = existingProduct.qty - 1;
+				cart['totalPrice'] = cart.totalPrice - productPrice;
+
+				if(existingProduct['qty'] === 0){
+					const updatedProduct = cart.products.filter( prod => prod.id !== existingProduct.id );
+					cart['products'] = updatedProduct;
+					cart['totalPrice'] = cart.totalPrice;
+				}
+
+				fs.writeFile(p, JSON.stringify(cart), err => {
+					console.log(err);
+				});
+			}
+
+			
+
+		});
+
+	}
 };
