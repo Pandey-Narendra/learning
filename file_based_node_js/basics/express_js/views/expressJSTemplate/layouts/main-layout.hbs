@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+    {{!-- Conditionally adds CSS files only if formsCSS is true in the data passed from the controller
+          It is a good practice to keep the logic in the controller or main code and not in the view
+          formsCSS is a boolean variable that is passed from the controller to the view
+     --}}
+    {{#if formsCSS}}
+        <link rel="stylesheet" href="/css/forms.css">
+    {{/if}}
+    {{#if productCSS}}
+        <link rel="stylesheet" href="/css/product.css">
+    {{/if}}
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            {{!-- It is a good practice to keep the logic in the controller or main code and not in the view --}}
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a class="{{#if activeShop }}active{{/if}}" href="/">Shop</a></li>
+                <li class="main-header__item"><a class="{{#if activeAddProduct }}active{{/if}}" href="/admin/add-product">Add Product</a></li>
+            </ul>
+        </nav>
+    </header>
+
+     {{!-- This is a placeholder for injecting page-specific content. Other Pug templates will extend this layout and define their own content in this block.
+        like @yield('section_name') in Laravel 
+    --}}
+    {{{ body }}}
+</body>
+
+</html>
