@@ -1,14 +1,80 @@
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Products Model Using Sequelize Starts
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const Sequelize = require('sequelize');
+
+const sequelize = require('../utils/db/database');
+
+const Product = sequelize.define('product', {
+	
+	id: {
+		type: Sequelize.INTEGER,
+		autoIncrement: true,
+		allowNull: false,
+		primaryKey: true
+	},
+
+	title: Sequelize.STRING,
+
+	price: {
+		type: Sequelize.DOUBLE,
+		allowNull: false
+	},
+
+	imageUrl: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+
+	description: {
+		type: Sequelize.STRING,
+		allowNull: false
+	}
+	
+});
+
+module.exports = Product;
+
+
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Products Model Using Sequelize Starts
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //      Import And Set Data And File Starts
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	const db = require('../mysql/database');
+	// const db = require('../mysql/database');
 
-	const rootDir = require('../utils/path');
-	const p = rootDir + '/data/products.json';
+	// const rootDir = require('../utils/path');
+	// const p = rootDir + '/data/products.json';
 
-	const Cart = require('./cart');
+	// const Cart = require('./cart');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //      Import And Set Data And File Ends
@@ -19,45 +85,45 @@
 			//      Products Model Class Definition Starts
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	module.exports = class Product {
+	// module.exports = class Product {
 		
-		// this
-		constructor(id, title, imageUrl, description, price) {
-			this.id = id;
-			this.title = title;
-			this.price = price;
-			this.imageUrl = imageUrl;
-			this.description = description;
-		}
+	// 	// this
+	// 	constructor(id, title, imageUrl, description, price) {
+	// 		this.id = id;
+	// 		this.title = title;
+	// 		this.price = price;
+	// 		this.imageUrl = imageUrl;
+	// 		this.description = description;
+	// 	}
 
-		// save new product
-		postProduct() {
-			return 	db.execute(
-						"Insert Into products(title, price, imageUrl, description) Values(?,?,?,?)",
-						[this.title, this.price, this.imageUrl, this.description]
-					);			
-		}
+	// 	// save new product
+	// 	postProduct() {
+	// 		return 	db.execute(
+	// 					"Insert Into products(title, price, imageUrl, description) Values(?,?,?,?)",
+	// 					[this.title, this.price, this.imageUrl, this.description]
+	// 				);			
+	// 	}
 
-		// get all the products
-		static getProducts() {
-			return db.execute("Select * From products");
-		}
+	// 	// get all the products
+	// 	static getProducts() {
+	// 		return db.execute("Select * From products");
+	// 	}
 
-		// get individual product
-		static getProduct(id){
-			return 	db.execute(
-						"Select * From products where products.id = ?", [id]
-					);	
+	// 	// get individual product
+	// 	static getProduct(id){
+	// 		return 	db.execute(
+	// 					"Select * From products where products.id = ?", [id]
+	// 				);	
 			
-		}
+	// 	}
 
-		delete(id) {
+	// 	delete(id) {
 			
 			
 			
-		}
+	// 	}
 
-	};
+	// };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //      Products Model Class Definition Ends

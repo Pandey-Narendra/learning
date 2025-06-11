@@ -18,7 +18,9 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-handlebars": "3.0",
+    "mongodb": "^6.17.0",
     "mysql2": "^3.14.1",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "sequelize": "^6.37.7"
   }
 }
