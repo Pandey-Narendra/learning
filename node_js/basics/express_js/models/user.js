@@ -1,20 +1,90 @@
-const Sequelize = require('sequelize');
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Users Model Using MongoDB Starts
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    const mongodb = require('mongodb');
+    const objectId = mongodb.ObjectId;
 
-const sequelize = require('../utils/db/database');
+    const getDB = require('../utils/db/database-mongodb').getDB;
+    class User 
+    {
+        constructor(name, email)
+        {
+            this.name = name;
+            this.email = email;
+        }
 
-const User = sequelize.define('user', {
-   
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
+        // create new user
+        postUser()
+        {
+            const db = getDB();
+            return db.collection('users')
+                .insertOne(this)
+                    .then( (result) => {} )
+                    .catch( (err) => {} )
+        }
 
-    name: Sequelize.STRING,
+        // fetch all users
+        static getUsers()
+        {
+            const db = getDB();
+            return db.collection('users')
+                .find()
+                .toArray()
+					.then( (users) => {
+						return users;
+					} )
+					.catch( (err) => {} )
+        }
 
-    email: Sequelize.STRING
+        // fetch individual users
+        static getUser(id)
+        {
+            const db = getDB();
+            return db.collection('users')
+                .findOne( {_id : new objectId(String(id))} )
+					.then( (user) => {
+						return user;
+					} )
+					.catch( (err) => {} )
+        }
+    }
 
-});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Users Model Using MongoDB Ends
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Users Model Using Sequelize Starts
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    // const Sequelize = require('sequelize');
+
+    // const sequelize = require('../utils/db/database');
+
+    // const User = sequelize.define('user', {
+    
+    //     id: {
+    //         type: Sequelize.INTEGER,
+    //         autoIncrement: true,
+    //         allowNull: false,
+    //         primaryKey: true
+    //     },
+
+    //     name: Sequelize.STRING,
+
+    //     email: Sequelize.STRING
+
+    // });
+
+    
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //      Users Model Using Sequelize Ends
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 module.exports = User;

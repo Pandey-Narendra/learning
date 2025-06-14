@@ -15,17 +15,35 @@
 
     exports.getProducts = (req, res, next) => {
         
-        // Sequelize
-        Product.findAll()
-            .then((products) => {
+        // MongoDB
+        Product.getProducts()
+            
+            .then( (products) => {
                 res.render('shop/product-list', {
                     prods: products,
                     pageTitle: 'All Products',
                     path: '/products'
                 });
-            })
-            .catch((err) => { console.log(err); })
+
+            } )
+            .catch( (err) => {
+                console.log(err);
+            } )
+
         ;
+
+
+        // Sequelize
+        // Product.findAll()
+        //     .then((products) => {
+        //         res.render('shop/product-list', {
+        //             prods: products,
+        //             pageTitle: 'All Products',
+        //             path: '/products'
+        //         });
+        //     })
+        //     .catch((err) => { console.log(err); })
+        // ;
 
         // MySql
         // Product.getProducts()
@@ -48,19 +66,37 @@
     exports.getProduct = (req, res, next) => {
         const productId = req.params.id;
     
-        // Sequelize
-        Product.findByPk(productId)
+        // MongoDB
+        Product.getProduct(productId)
+            
             .then( (product) => {
+                
                 res.render('shop/product-detail', {
                     product: product, 
                     pageTitle: product.title, 
                     path: '/products'
                 });
+                
             } )
             .catch( (err) => {
-                // console.log(err);
+            
             } )
         ;
+
+
+        // Sequelize
+        // Product.findByPk(productId)
+        //     .then( (product) => {
+        //         res.render('shop/product-detail', {
+        //             product: product, 
+        //             pageTitle: product.title, 
+        //             path: '/products'
+        //         });
+        //     } )
+        //     .catch( (err) => {
+        //         // console.log(err);
+        //     } )
+        // ;
 
 
         // MySQL
@@ -78,18 +114,36 @@
     }
 
     exports.getIndex = (req, res, next) => {
-        
-        // Sequelize
-        Product.findAll()
-            .then((products) => {
+
+        // MongoDB
+        Product.getProducts()
+            
+            .then( (products) => {
                 res.render('shop/index', {
                     prods: products,
                     pageTitle: 'Shop',
                     path: '/'
                 });
-            })
-            .catch((err) => { console.log(err); })
+
+            } )
+            .catch( (err) => {
+                console.log(err);
+            } )
+
         ;
+
+        
+        // Sequelize
+        // Product.findAll()
+        //     .then((products) => {
+        //         res.render('shop/index', {
+        //             prods: products,
+        //             pageTitle: 'Shop',
+        //             path: '/'
+        //         });
+        //     })
+        //     .catch((err) => { console.log(err); })
+        // ;
 
         // MySql
         // Product.getProducts()

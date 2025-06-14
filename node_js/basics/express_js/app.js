@@ -20,10 +20,9 @@
                     //      Import Models And DBs Starts
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+		const mongodbConnect = require('./utils/db/database-mongodb').mongoConnect;
 
-		const mongodbConnect = require('./utils/db/database-mongodb');
-
-    
+    	const User = require('./models/user'); 
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 						//      Import Models And DBs Ends
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,14 +71,15 @@
 	// storing the user in your middleware to access through out the application like session
 	app.use((req, res, next) => {
 		
-		// User.findByPk(1)
+		User.getUser('684d6256506af48de57fcb4a')
 			
-		// 	.then(user => {
-		// 		req.user = user;
-		// 		next();
-		// 	})
-		// 	.catch(err => console.log(err))
-		// ;
+			.then(user => {
+				req.user = user;
+				next();
+			})
+			.catch(err => { next(); })
+		;
+		
 	});
 
 	app.use('/admin', adminRoutes);
@@ -92,7 +92,7 @@
         
         const errorController = require('./controllers/errors');
 
-        app.use('/', errorController.get404Page);
+        app.use(errorController.get404Page);
 
     // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                             //      Controllers Ends
@@ -106,12 +106,25 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                             //      Mongodb Starts
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// This () => {}  is a callback function passed as a actual parameter 
-	// to get executed inside some other function as formal parameter
-	mongodbConnect( (client) => {
-		// console.log(client)
+	
+	mongodbConnect( () => {
+		// const user = new User("NARENDRA PANDEY", "pandeynarendra785@gmail.com");
+		// user.postUser()
+		// 	.then( (user) => {
+		// 		app.listen(3000);
+		// 	} )
+		// 	.catch((err) => {})
+		// ;
 		app.listen(3000);
 	} );
+
+
+	// This () => {}  is a callback function passed as a actual parameter 
+	// to get executed inside some other function as formal parameter
+	// mongodbConnect( (client) => {
+	// 	// console.log(client)
+	// 	app.listen(3000);
+	// } );
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                             //      Mongodb Ends

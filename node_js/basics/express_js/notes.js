@@ -32,4 +32,21 @@
 // 2:15 pm --- 3:15 pm -- node js
 
 // 11/06/2025
-// 5:35 am ---  7: 35 am -- node js
+// 5:35 am ---  8: 02 am -- node js
+// 12:00 pm ---  1:00 pm-- RS
+
+
+// 12/06/2025
+// 6:00 am ---  7:45 am-- node js
+// 12:45 pm ---  1:pm -- research
+
+
+// 13/06/2025
+// 4:30 pm - 5:30pm linkedin
+// 10: 00 pm - 11:45 pm node js 
+
+// 14/06/2025
+// 8:20 am -- 9:30 am nodejs
+// 4:20 pm -- 5: 25 pm nodejs
+// 5:45 pm -- 6: 35 pm nodejs
+
